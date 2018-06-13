@@ -1,0 +1,66 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static "images/logo.png" %}">
+    <link href="{% static "bootstrap.min.css" %}" type="text/css" rel="stylesheet">
+    <link href="{% static "open-iconic-bootstrap.css" %}" type="text/css" rel="stylesheet">
+    <style type="text/css">
+      .container.container-sm {
+        margin-top: 100px;
+      }
+      body {
+        background-color: #5a6268;
+        font-size: 1.125rem;
+      }
+      .navbar-light .navbar-nav a.nav-link.active {
+        border-bottom: 2px solid goldenrod;
+        color: goldenrod;
+        font-weight: 900;
+      }
+      .navbar-light .navbar-nav a.nav-link:hover {
+        font-weight: 900;
+      }
+      .alert {
+      }
+      #scoresheet-table, .alert {
+        margin-right: auto;
+        margin-left: auto;
+      }
+      .label-number {
+        width: 30px;
+        padding-right: 5px;
+        display: inline-block;
+        text-align: right;
+        font-weight: 900;
+      }
+      input.ng-dirty.ng-invalid {
+        box-shadow: 0 0 2px 2px red !important;
+        background-color: #f8d7da !important;
+      }
+    </style>
+    <title>Home</title>
+</head>
+<body ng-controller="IndexController as index">
+<ui-view>
+  <div class="container text-center pt-xl-5" style="height: 500px;">
+    <img src="{% static "loading.gif" %}" style="width: 50px;">
+  </div>
+</ui-view>
+<script src="{% static "jquery.min.js" %}"></script>
+<script src="{% static "bootstrap.bundle.min.js" %}"></script>
+<script src="{% static "angular.min.js" %}"></script>
+<script src="{% static "angular-ui-router.min.js" %}"></script>
+<script src="{% static "app.js" %}"></script>
+<script src="{% static "AuthService.js" %}"></script>
+<script src="{% static "ScoreService.js" %}"></script>
+<script src="{% static "IndexController.js" %}"></script>
+<script src="{% static "LoginController.js" %}"></script>
+<script src="{% static "HomeController.js" %}"></script>
+<script src="{% static "ScoreController.js" %}"></script>
+<script src="{% static "TabulationController.js" %}"></script>
+</body>
+</html>

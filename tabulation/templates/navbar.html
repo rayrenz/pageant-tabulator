@@ -1,0 +1,23 @@
+{% verbatim %}
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" ng-cloak>
+    <a class="navbar-brand">
+      <img src="/static/images/logo.png" width="50" height="50" class="d-inline-block align-top">
+    </a>
+    <ul class="navbar-nav justify-content-center w-100">
+      <li class="nav-item"  ng-repeat="category in sc.categories">
+        <a class="nav-link" ui-sref-active="active" ui-sref="root.scoresheet.category({category: category.name})">{{ category.title }}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" ui-sref-active="active" ui-sref="root.scoresheet.category({category: 'final_interview'})">Final Interview</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav" style="min-width: 150px;">
+      <li class="navbar-text mr-3">
+        <i class="oi oi-person"></i> {{ auth.user }}
+      </li>
+      <li class="nav-item">
+        <a class="btn-light nav-link" href="" ng-click="index.logout()"><i class="oi oi-account-logout"></i> </a>
+      </li>
+    </ul>
+</nav>
+{% endverbatim %}

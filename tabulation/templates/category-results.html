@@ -1,0 +1,62 @@
+{% extends "easy_pdf/base.html" %}
+
+{% block extra_style %}
+  <style type="text/css">
+    @page {
+      size: letter landscape;
+      margin: 0.5in;
+    }
+    table {
+      border: thin solid silver;
+      background-color: #ebe4e7;
+    }
+    th {
+      font-size: 1.25em;
+      background-color: #4e555b;
+      color: white;
+    }
+    td, th {
+      text-align: center;
+      padding: 5px
+    }
+    .even {
+      background-color: #fff8fb;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center; width: 100%; font-size: 1.125em"><h1>{{ category }}</h1></div>
+<table class="table-striped">
+  <tr>
+    <th>Candidate</th>
+    {% for judge in judges %}
+      <th>{{ judge.username }}</th>
+    {% endfor %}
+    <th>Total</th>
+    <th>Average</th>
+    <th>Rank</th>
+  </tr>
+  {% for candidate in candidates %}
+    <tr>
+      <td width="20%" {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %} style="text-align: left">
+        {{ candidate.number }} {{ candidate.title }}
+      </td>
+      {% for score in candidate.scores %}
+        <td width="" {% if forloop.parentloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+          {{ score.points }} <small style="font-size: .75em; color: gray;">{{ score.judge }}</small>
+        </td>
+      {% endfor %}
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.total }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.average }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.rank }}
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

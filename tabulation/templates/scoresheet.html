@@ -1,0 +1,62 @@
+{% include 'navbar.html' %}
+{% verbatim %}
+<div class="container container-sm">
+  <div class="alert alert-success" id="alert" style="display: none">
+    <span class="message"></span>
+    <button type="button" onclick="closeAlert()" class="close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <table class="table table-striped table-dark" id="scoresheet-table">
+    <thead>
+      <tr>
+        <th class="d-print-block d-none" colspan="2">{{ sc.category.title }}</th>
+      </tr>
+      <tr class="text-center" ng-if="sc.category">
+        <th class="" ng-class="{'w-100':!sc.category, 'w-50':sc.category}">Candidate</th>
+        <th class="w-25" ng-if="sc.category && sc.category != 'final_interview'">Score</th>
+        <th class="w-25">Rank</th>
+      </tr>
+    </thead>
+    <tbody class="text-left">
+      <tr ng-repeat="candidate in sc.candidates" ng-if="sc.category != 'final_interview'">
+        <td>
+          <span ng-bind="candidate.number" class="label-number"></span>
+          <span ng-bind="candidate.title"></span>
+        </td>
+        <td class="pl-5 pr-5" ng-if="sc.category">
+          <input type="number" class="form-control" max="10" min="1" ng-model="sc.scores[sc.category][candidate.id]"
+                 ng-change="sc.checkScore(candidate.id)" step="0.1">
+        </td>
+        <td ng-if="sc.category" ng-bind-html="sc.ranks[candidate.id] | rank" class="text-center"></td>
+      </tr>
+      <tr ng-repeat="candidate in sc.candidates" ng-if="sc.category && sc.category == 'final_interview' && candidate.finalist">
+        <td>
+          <span ng-bind="candidate.number" class="label-number"></span>
+          <span ng-bind="candidate.title"></span>
+        </td>
+        <td class="pl-5 pr-5" ng-if="sc.category && sc.category != 'final_interview'">
+          <input type="number" class="form-control" max="10" min="1" ng-model="sc.scores[sc.category][candidate.id]"
+                 ng-change="sc.checkScore(candidate.id)" step="0.1">
+        </td>
+        <td ng-if="sc.category && sc.category != 'final_interview'" ng-bind-html="sc.ranks[candidate.id] | rank" class="text-center"></td>
+        <td ng-if="sc.category && sc.category == 'final_interview'">
+          <input type="number" class="form-control" max="7" min="1" ng-model="sc.finalScores[candidate.id]"
+                 step="1">
+        </td>
+      </tr>
+    </tbody>
+    <tfoot ng-if="sc.category">
+      <tr>
+        <td colspan="3">
+          <button class="btn btn-primary d-print-none" ng-if="!sc.category.readonly" ng-click="sc.submit()">
+            <i class="oi oi-data-transfer-upload"></i>
+            Submit
+          </button>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+{% endverbatim %}
+

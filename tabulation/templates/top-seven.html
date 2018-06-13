@@ -1,0 +1,106 @@
+{% extends "easy_pdf/base.html" %}
+
+{% block extra_style %}
+  <style type="text/css">
+    @page {
+      size: letter landscape;
+      margin: 0.5in;
+    }
+    table {
+      border: thin solid silver;
+      background-color: #ebe4e7;
+    }
+    th {
+      font-size: 1.25em;
+      background-color: #4e555b;
+      color: white;
+    }
+    td, th {
+      text-align: center;
+      padding: 5px
+    }
+    .even {
+      background-color: #fff8fb;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center; width: 100%; font-size: 1.125em"><h1>Top Seven</h1></div>
+<table class="table-striped">
+  <tr>
+    <th rowspan="2">Candidate</th>
+    <th colspan="2">Talent<br>(20%)</th>
+    <th colspan="2">Production Number<br>(10%)</th>
+    <th colspan="2">Casual Wear<br>(10%)</th>
+    <th colspan="2">Casual Interview<br>(20%)</th>
+    <th colspan="2">Swimsuit Competition<br>(20%)</th>
+    <th colspan="2">Evening Gown<br>(20%)</th>
+    <th rowspan="2">Total</th>
+    <th rowspan="2">Rank</th>
+  </tr>
+  <tr>
+    <th rowspan="1">Average</th>
+    <th rowspan="1">Weight</th>
+    <th rowspan="1">Average</th>
+    <th rowspan="1">Weight</th>
+    <th rowspan="1">Average</th>
+    <th rowspan="1">Weight</th>
+    <th rowspan="1">Average</th>
+    <th rowspan="1">Weight</th>
+    <th rowspan="1">Average</th>
+    <th rowspan="1">Weight</th>
+    <th rowspan="1">Average</th>
+    <th rowspan="1">Weight</th>
+  </tr>
+  {% for candidate in candidates %}
+    <tr>
+      <td width="20%" {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %} style="text-align: left">
+        {{ candidate.number }} {{ candidate.title }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.talent.average }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.talent.weight }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.production_number.average }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.production_number.weight }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.casual_wear.average }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.casual_wear.weight }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.casual_interview.average }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.casual_interview.weight }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.swimsuit_competition.average }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.swimsuit_competition.weight }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.evening_gown.average }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.evening_gown.weight }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.total }}
+      </td>
+      <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
+        {{ candidate.rank }}
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

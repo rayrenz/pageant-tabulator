@@ -1,0 +1,29 @@
+{% include 'navbar-tabulation.html' %}
+{% verbatim %}
+<div class="container container-sm">
+  <table class="table table-striped table-light" id="tabulation-table">
+    <thead>
+      <tr>
+        <th class="d-print-block d-none" colspan="2">{{ tab.category.title }}</th>
+      </tr>
+      <tr class="text-center" ng-if="tab.category">
+        <th>Candidate</th>
+        <th ng-repeat="judge in tab.judgeScores" ng-bind="judge.username"></th>
+        <th>Average</th>
+        <th>Rank</th>
+      </tr>
+    </thead>
+    <tbody class="text-left">
+      <tr ng-repeat="candidate in tab.candidates">
+        <td>
+          <span ng-bind="candidate.number" class="label-number"></span>
+          <span ng-bind="candidate.title"></span>
+        </td>
+        <td ng-repeat="judge in tab.judgeScores" ng-bind="tab.getScore(candidate.id, judge.username)"></td>
+        <td ng-bind="candidate.average">
+        <td ng-bind-html="candidate.rank | rank"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endverbatim %}
