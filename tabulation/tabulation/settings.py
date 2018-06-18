@@ -25,7 +25,7 @@ SECRET_KEY = 'tetkjib=*u*xvntreh)*anlk3gcmlc-x!#&k2y27i2(y762c-q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.7', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.1.7', '127.0.0.1', '192.168.43.170']
 
 AUTH_USER_MODEL = 'pageant.User'
 

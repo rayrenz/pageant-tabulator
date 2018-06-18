@@ -118,6 +118,8 @@ class ScoresView(JSONResponseMixin, View):
         return self.render_json_response(scores)
 
     def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.render_json_response({'message': 'Session expired. Please refresh the page and login again.', 'type': 'error'})
         category = kwargs.get('category', '')
         category = Category.objects.get(name=category)
         scores = json.loads(request.body.decode('utf-8'))
@@ -169,7 +171,7 @@ class CategoryResultsView(PDFTemplateView, JSONResponseMixin, View):
             for score in scores:
                 score_count += 1
                 total += score.get('points', 0)
-            candidate['scores'] = scores
+                candidate['scores'].append([score.get('judge'), score.get('points')])
             for judge in judges:
                 has_score = False
                 for score in scores:
@@ -177,7 +179,8 @@ class CategoryResultsView(PDFTemplateView, JSONResponseMixin, View):
                         has_score = True
                         break
                 if not has_score:
-                    candidate['scores'].append({'judge': judge.get('username'), 'points': ''})
+                    candidate['scores'].append([judge.get('username'), ''])
+            candidate['scores'] = sorted(candidate['scores'])
             if score_count > 0:
                 average = float('{0:.2f}'.format(total / score_count))
                 candidate['average'] = average
@@ -239,7 +242,6 @@ class TopSevenView(PDFTemplateView, JSONResponseMixin, View):
 
             candidate['total'] = float('{0:.2f}'.format(candidate['total']))
 
-
         #ranking
         totals = []
         for candidate in candidates_dict:
@@ -270,8 +272,10 @@ class FinalView(JSONResponseMixin, View):
         final = get_json(Final.objects.filter(judge=j))
         return self.render_json_response(final)
 
-    def post(self, *args, **kwargs):
-        scores = json.loads(self.request.body.decode('utf-8'))
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.render_json_response({'message': 'Session expired. Please refresh the page and login again.', 'type': 'error'})
+        scores = json.loads(request.body.decode('utf-8'))
         judge = self.request.user
         test = []
         for id, rank in scores.items():

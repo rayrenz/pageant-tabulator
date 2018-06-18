@@ -5,6 +5,7 @@ from .models import Candidate, Category, Score, User, Talent, Final
 
 class FinalAdmin(admin.ModelAdmin):
     fields = ('candidate', 'rank', 'judge')
+    list_filter = ('candidate',)
     list_display =  fields
 admin.site.register(Final, FinalAdmin)
 

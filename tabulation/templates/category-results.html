@@ -42,16 +42,16 @@
       <td width="20%" {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %} style="text-align: left">
         {{ candidate.number }} {{ candidate.title }}
       </td>
-      {% for score in candidate.scores %}
+      {% for judge, score in candidate.scores %}
         <td width="" {% if forloop.parentloop.counter|divisibleby:"2" %}class="even"{% endif %}>
-          {{ score.points }} <small style="font-size: .75em; color: gray;">{{ score.judge }}</small>
+          {{ score }} <small style="font-size: .75em; color: gray;">{{ judge }}</small>
         </td>
       {% endfor %}
       <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
-        {{ candidate.total }}
+        {{ candidate.total|floatformat:"2" }}
       </td>
       <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
-        {{ candidate.average }}
+        {{ candidate.average|floatformat:"2" }}
       </td>
       <td {% if forloop.counter|divisibleby:"2" %}class="even"{% endif %}>
         {{ candidate.rank }}

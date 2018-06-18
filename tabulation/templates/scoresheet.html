@@ -41,7 +41,7 @@
         </td>
         <td ng-if="sc.category && sc.category != 'final_interview'" ng-bind-html="sc.ranks[candidate.id] | rank" class="text-center"></td>
         <td ng-if="sc.category && sc.category == 'final_interview'">
-          <input type="number" class="form-control" max="7" min="1" ng-model="sc.finalScores[candidate.id]"
+          <input type="number" class="form-control" max="8" min="1" ng-model="sc.finalScores[candidate.id]"
                  step="1">
         </td>
       </tr>
